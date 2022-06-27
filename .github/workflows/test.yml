@@ -1,0 +1,32 @@
+name: actionTest
+
+on: 
+  push:
+    branches: # push时监听哪些分支
+      - master
+      # - develop
+    paths: #  master分支下哪些目录
+      - '.github/workflows/**'
+      - '__test__/**'
+      - 'src/**'
+
+jobs: #  触发后的任务是什么
+  tets: 
+    runs-on: ubuntu-latest # 在什么操作系统下运行
+    steps: # 运行步骤
+      - uses: actions/checkout@v2 # git pull 第三方的 actions
+      - name: Use Node.js #  步骤名称
+        uses: actions/setup-node@v1  # 安装nodejs 第三方actions
+        with:
+          node-version: 14
+      - name: print node version #  步骤名称
+        run: |
+            node -v
+            npm -v
+            echo 'hello github actions'
+  tets2: 
+    runs-on: ubuntu-latest # 在什么操作系统下运行
+    steps: # 运行步骤
+      - run: touch a.txt
+      - run: echo 100 > a.txt
+      - run: cat a.txt
